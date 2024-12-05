@@ -14,12 +14,18 @@ Una aplicación para gestionar tareas pendientes usando React y TypeScript.
 
 2. Instala las dependencias:
 
-`cd todolist/ft
+```
+cd todolist/ft
 npm install
-`
+
+```
 
 ## Uso
 
 - Inicia el frontend:
-  `cd ft
-npm run dev`
+
+  ```
+  cd ft
+  npm run dev
+
+  ```

@@ -3,8 +3,8 @@
 
 */vite
  
- */.env
- */.env.local
+*/.env
+*/.env.local
 
 */.vscode/
 */.idea/
