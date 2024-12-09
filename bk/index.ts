@@ -2,6 +2,7 @@
 import express, {Request, Response} from "express";
 import cors from "cors";
 import connectDB from "./config/db";
+import tasksRoute from "./routes/tasksRoutes";
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -14,6 +15,8 @@ app.use(express.json());
 
 
 //Rutas
+app.use("/todolist/api", tasksRoute);
+
 
 //Inicio del servidor
 app.listen(PORT, () =>{
