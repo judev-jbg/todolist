@@ -2,6 +2,7 @@
 import express, {Request, Response} from "express";
 import cors from "cors";
 import connectDB from "./config/db";
+import dotenv from "dotenv";
 import tasksRoute from "./routes/tasksRoutes";
 
 const app = express();
@@ -12,7 +13,8 @@ app.use(cors());
 app.use(express.json());
 
 // Connect to MongoDB
-
+dotenv.config();
+connectDB();
 
 //Rutas
 app.use("/todolist/api", tasksRoute);
