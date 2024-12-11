@@ -4,11 +4,12 @@ import Task from "./components/Task";
 import NewTask from "./components/NewTask";
 import HeaderTask from "./components/HeaderTask";
 import ActionModal from "./components/ActionModal";
+import api from "./services/api";
 
 interface Task {
-  id: number;
+  _id?: string;
   text: string;
-  date: string;
+  createdAt?: string;
 }
 
 function App() {
@@ -17,39 +18,42 @@ function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    setTasks([
-      { id: 1, text: "Task 1", date: "2024/11/01 21:18:16" },
-      {
-        id: 2,
-        text: "Taskik 2",
-        date: "2024/11/15 10:01:01",
-      },
-      { id: 3, text: "Task 3", date: "2024/12/01 15:23:25" },
-    ]);
+    const fetchTasks = async () => {
+      try {
+        const response = await api.get("/tasks");
+        setTasks(response.data.payload);
+      } catch (error) {
+        console.error("Error al obtener las tareas: ", error);
+      }
+    };
+    fetchTasks();
   }, []);
-
-  const getLastId = () => tasks[tasks.length - 1].id;
 
   const getCurrentTask = (currentTask: Task) => {
     setTask(currentTask);
   };
 
-  const addTask = (newItem: Task) => {
-    setTasks((prevTasks) => [...prevTasks, newItem]);
+  const addTask = async (newItem: Task) => {
+    const response = await api.post("/task", { text: newItem.text });
+    setTasks((prevTasks) => [...prevTasks, response.data.payload]);
   };
 
-  const completeTask = () => {
-    setTasks(tasks.filter((tsk) => tsk.id !== task!.id));
+  const completeTask = async () => {
+    const response = await api.delete(`/task/${task!._id}`);
+    setTasks(tasks.filter((tsk) => tsk._id !== response.data.payload._id));
     handleModal();
   };
 
-  const editTask = (updatedTask: Task) => {
+  const editTask = async (updatedTask: Task) => {
+    const response = await api.patch(`/task/${updatedTask._id}`, {
+      text: updatedTask.text,
+    });
     setTasks(
       tasks.map((tsk) =>
-        tsk.id === task!.id
+        tsk._id === task!._id
           ? {
               ...tsk,
-              text: updatedTask!.text,
+              text: response.data.payload.text,
             }
           : tsk
       )
@@ -58,7 +62,7 @@ function App() {
   };
 
   const tasksSort = tasks.sort(
-    (a, b) => Number(new Date(b.date)) - Number(new Date(a.date))
+    (a, b) => Number(new Date(b.createdAt!)) - Number(new Date(a.createdAt!))
   );
 
   const handleModal = () => {
@@ -80,7 +84,7 @@ function App() {
           ))}
         </div>
       </div>
-      <NewTask onAddTask={addTask} getLastId={getLastId} />
+      <NewTask onAddTask={addTask} />
       {isModalOpen && (
         <ActionModal
           task={task!}

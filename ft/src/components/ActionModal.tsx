@@ -1,9 +1,9 @@
 import { useState } from "react";
 
 interface Task {
-  id: number;
+  _id?: string;
   text: string;
-  date: string;
+  createdAt?: string;
 }
 
 export default function ActionModal({

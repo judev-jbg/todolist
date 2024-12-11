@@ -1,17 +1,14 @@
 import React, { useState } from "react";
 
 interface Task {
-  id: number;
   text: string;
-  date: string;
 }
 
 interface NewTaskProps {
   onAddTask: (newItem: Task) => void;
-  getLastId: () => number;
 }
 
-export default function NewTask({ onAddTask, getLastId }: NewTaskProps) {
+export default function NewTask({ onAddTask }: NewTaskProps) {
   const [isVisibleInput, setisVisibleInput] = useState(false);
   const [value, setValue] = useState("");
   const date = new Date();
@@ -43,9 +40,7 @@ export default function NewTask({ onAddTask, getLastId }: NewTaskProps) {
   const handleSubmit = () => {
     if (value.trim()) {
       onAddTask({
-        id: getLastId() + 1,
         text: value,
-        date: Date(),
       });
       setValue("");
       setisVisibleInput(!isVisibleInput);
