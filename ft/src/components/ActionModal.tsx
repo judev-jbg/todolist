@@ -6,24 +6,21 @@ interface Task {
   createdAt?: string;
 }
 
+type ActionType = 0 | 1 | 2;
+
 export default function ActionModal({
   task,
-  completeTask,
+  actionModal,
   editTask,
 }: {
   task: Task;
-  completeTask: () => void;
+  actionModal: ActionType;
   editTask: (tsk: Task) => void;
 }) {
-  const [onEdit, setOnEdit] = useState(false);
   const [value, setValue] = useState(task.text);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
-  };
-
-  const handleEdit = () => {
-    setOnEdit(true);
   };
 
   const handleSubmit = () => {
@@ -42,25 +39,39 @@ export default function ActionModal({
   return (
     <div className="modalTask__container">
       <div className="modalTask">
-        {!onEdit ? (
+        {actionModal === 1 && (
           <>
-            <p>Puedes editar o completar la tarea</p>
-            <button onClick={handleEdit}>Editar</button>
-            <button onClick={completeTask}>Completar</button>
-          </>
-        ) : (
-          <>
+            <h4>✏ Actualizar tarea</h4>
             <input
-              className=""
+              className="input"
               type="text"
               onChange={handleChange}
               value={value}
               onKeyDown={handleKeyDown}
               autoFocus
             />
-            <button className="" onClick={handleSubmit}>
-              Guardar
-            </button>
+            <div className="button__container">
+              <button className="button__border" onClick={handleSubmit}>
+                Cancelar
+              </button>
+              <button className="button__border" onClick={handleSubmit}>
+                Guardar
+              </button>
+            </div>
+          </>
+        )}
+        {actionModal === 2 && (
+          <>
+            <h4>✔ Completar tarea</h4>
+            <p>¿Desea completar la tarea?</p>
+            <div className="button__container">
+              <button className="button__border" onClick={handleSubmit}>
+                Cancelar
+              </button>
+              <button className="button__border" onClick={handleSubmit}>
+                Guardar
+              </button>
+            </div>
           </>
         )}
       </div>

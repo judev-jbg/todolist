@@ -12,10 +12,13 @@ interface Task {
   createdAt?: string;
 }
 
+type ActionType = 0 | 1 | 2;
+
 function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [task, setTask] = useState<Task>();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [actionModal, setActionModal] = useState<ActionType>(0);
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -38,10 +41,9 @@ function App() {
     setTasks((prevTasks) => [...prevTasks, response.data.payload]);
   };
 
-  const completeTask = async () => {
-    const response = await api.delete(`/task/${task!._id}`);
+  const completeTask = async (completedTask: Task) => {
+    const response = await api.delete(`/task/${completedTask!._id}`);
     setTasks(tasks.filter((tsk) => tsk._id !== response.data.payload._id));
-    handleModal();
   };
 
   const editTask = async (updatedTask: Task) => {
@@ -58,15 +60,16 @@ function App() {
           : tsk
       )
     );
-    handleModal();
+    handleModal(0);
   };
 
   const tasksSort = tasks.sort(
     (a, b) => Number(new Date(b.createdAt!)) - Number(new Date(a.createdAt!))
   );
 
-  const handleModal = () => {
+  const handleModal = (actionModal: ActionType) => {
     setIsModalOpen(!isModalOpen);
+    setActionModal(actionModal);
   };
 
   return (
@@ -80,6 +83,7 @@ function App() {
               task={task}
               handleModal={handleModal}
               getCurrentTask={getCurrentTask}
+              completeTask={completeTask}
             />
           ))}
         </div>
@@ -88,7 +92,7 @@ function App() {
       {isModalOpen && (
         <ActionModal
           task={task!}
-          completeTask={completeTask}
+          actionModal={actionModal}
           editTask={editTask}
         />
       )}
