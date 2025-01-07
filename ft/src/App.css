@@ -114,6 +114,8 @@
   right: 2rem;
   width: 3rem;
   height: 3rem;
+  background: #0a998d;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
   font-size: 1.5rem;
   border: none;
   border-radius: 50%;
@@ -122,6 +124,10 @@
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
   -o-border-radius: 50%;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+  -ms-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+  -o-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
 }
 
 .actionTask__container{
@@ -229,14 +235,14 @@ h4{
   width: 100%;
 }
 
-.button__border{
-  background: none;
+.button__solid{
+  background: #0a998d;
   border: none;
   outline: none;
   font-size: .9rem;
   padding: .6rem;
-  color: #000;
-  border: 1px solid #000;
+  cursor: pointer;
+  color: #fff;
   border-radius: 2px;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
@@ -244,3 +250,24 @@ h4{
   -o-border-radius: 2px;
 }
 
+
+.button__border{
+  background: none;
+  border: none;
+  outline: none;
+  font-size: .9rem;
+  padding: .6rem;
+  color: #0a998d;
+  cursor: pointer;
+  margin-right: 1rem;
+  border: 1px solid #0a998d;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+}
+
+.questrion__popup{
+  margin-bottom: 2rem;
+}

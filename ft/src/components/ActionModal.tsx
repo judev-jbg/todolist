@@ -12,10 +12,14 @@ export default function ActionModal({
   task,
   actionModal,
   editTask,
+  completeTask,
+  handleModal,
 }: {
   task: Task;
   actionModal: ActionType;
   editTask: (tsk: Task) => void;
+  completeTask: (completedTask: Task) => void;
+  handleModal: (actionSwipe: ActionType) => void;
 }) {
   const [value, setValue] = useState(task.text);
 
@@ -23,17 +27,25 @@ export default function ActionModal({
     setValue(e.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleEdit = () => {
     if (value.trim()) {
       setValue("");
       editTask({ ...task, text: value });
     }
   };
 
+  const handleComplete = () => {
+    completeTask(task);
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      handleSubmit();
+      handleEdit();
     }
+  };
+
+  const anulateAction = () => {
+    handleModal(0);
   };
 
   return (
@@ -51,10 +63,10 @@ export default function ActionModal({
               autoFocus
             />
             <div className="button__container">
-              <button className="button__border" onClick={handleSubmit}>
+              <button className="button__border" onClick={anulateAction}>
                 Cancelar
               </button>
-              <button className="button__border" onClick={handleSubmit}>
+              <button className="button__solid" onClick={handleEdit}>
                 Guardar
               </button>
             </div>
@@ -63,13 +75,13 @@ export default function ActionModal({
         {actionModal === 2 && (
           <>
             <h4>✔ Completar tarea</h4>
-            <p>¿Desea completar la tarea?</p>
+            <p className="questrion__popup">¿Desea completar la tarea?</p>
             <div className="button__container">
-              <button className="button__border" onClick={handleSubmit}>
+              <button className="button__border" onClick={anulateAction}>
                 Cancelar
               </button>
-              <button className="button__border" onClick={handleSubmit}>
-                Guardar
+              <button className="button__solid" onClick={handleComplete}>
+                Completar
               </button>
             </div>
           </>

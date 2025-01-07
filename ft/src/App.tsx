@@ -44,6 +44,7 @@ function App() {
   const completeTask = async (completedTask: Task) => {
     const response = await api.delete(`/task/${completedTask!._id}`);
     setTasks(tasks.filter((tsk) => tsk._id !== response.data.payload._id));
+    handleModal(0);
   };
 
   const editTask = async (updatedTask: Task) => {
@@ -83,7 +84,6 @@ function App() {
               task={task}
               handleModal={handleModal}
               getCurrentTask={getCurrentTask}
-              completeTask={completeTask}
             />
           ))}
         </div>
@@ -94,6 +94,8 @@ function App() {
           task={task!}
           actionModal={actionModal}
           editTask={editTask}
+          completeTask={completeTask}
+          handleModal={handleModal}
         />
       )}
     </>

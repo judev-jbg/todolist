@@ -12,12 +12,10 @@ export default function Task({
   task,
   handleModal,
   getCurrentTask,
-  completeTask,
 }: {
   task: Task;
   handleModal: (actionSwipe: ActionType) => void;
   getCurrentTask: (currentTask: Task) => void;
-  completeTask: (completedTask: Task) => void;
 }) {
   const [startX, setStartX] = useState(0); // Posición inicial del toque
   const [translateX, setTranslateX] = useState(0); // Desplazamiento actual
@@ -40,7 +38,6 @@ export default function Task({
 
     if (diffX > 150) {
       showModal(2);
-      completeTask(task);
       console.log("Completar tarea"); // Editar si desliza a la derecha
     } else if (diffX < -150) {
       showModal(1);
@@ -55,7 +52,6 @@ export default function Task({
 
     if (diffX > 150) {
       showModal(2);
-      completeTask(task);
       console.log("Completar tarea"); // Editar si desliza a la derecha
     } else if (diffX < -150) {
       showModal(1);
