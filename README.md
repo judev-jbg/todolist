@@ -11,14 +11,16 @@ Una aplicación para gestionar tareas pendientes usando React, TypeScript y Node
 ## Instalación
 
 1. Clona el repositorio:
-   `  git clone https://github.com/tuusuario/todolist.git`
+   `  git clone https://github.com/judev-jbg/todolist.git`
 
 2. Instala las dependencias:
 
-`cd todolist/ft
+```
+cd todolist/ft
 npm install
 cd ../bk
-npm install`
+npm install
+```
 
 3. Configura las variables de entorno en un archivo .env
 
@@ -31,3 +33,7 @@ npm run dev`
 - Inicia el backend:
   `cd bk
 npm run dev`
+
+```
+
+```
