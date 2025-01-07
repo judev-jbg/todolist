@@ -33,7 +33,3 @@ npm run dev`
 - Inicia el backend:
   `cd bk
 npm run dev`
-
-```
-
-```
